@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots/'
+	}
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+	compile 'se.llbit:chunky-core:1.4.1-SNAPSHOT'
+}
+
+defaultTasks 'jar'
+
+mainClassName = 'se.llbit.chunky.plugin.TabMod'
