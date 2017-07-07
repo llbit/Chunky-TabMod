@@ -1,0 +1,6 @@
+{
+  "name": "TabMod",
+  "main": "se.llbit.chunky.plugin.TabMod",
+  "version": "1.0",
+  "targetVersion": "1.4.3"
+}
