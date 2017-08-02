@@ -13,7 +13,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 dependencies {
-	compile 'se.llbit:chunky-core:1.4.2-SNAPSHOT'
+	compile 'se.llbit:chunky-core:1.4.3-SNAPSHOT'
 }
 
 defaultTasks 'jar'

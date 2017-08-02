@@ -14,6 +14,7 @@
  */
 package se.llbit.chunky.plugin;
 
+import javafx.scene.control.Tab;
 import se.llbit.chunky.Plugin;
 import se.llbit.chunky.main.Chunky;
 import se.llbit.chunky.main.ChunkyOptions;
@@ -21,7 +22,6 @@ import se.llbit.chunky.ui.ChunkyFx;
 import se.llbit.chunky.ui.render.RenderControlsTab;
 import se.llbit.chunky.ui.render.RenderControlsTabTransformer;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +32,22 @@ public class TabMod implements Plugin {
   @Override public void attach(Chunky chunky) {
     RenderControlsTabTransformer prev = chunky.getRenderControlsTabTransformer();
     chunky.setRenderControlsTabTransformer(tabs -> {
+      // First, call the previous transformer (this allows other plugins to work).
       List<RenderControlsTab> transformed = new ArrayList<>(prev.apply(tabs));
+
       // This adds a new tab after the first tab (the "General" tab):
-      transformed.add(1, new CustomTab());
+      transformed.add(1, new CustomRenderTab());
+      return transformed;
+    });
+
+    // Add a hook to insert a new tab in the main window.
+    TabTransformer prevMainTabTransformer = chunky.getMainTabTransformer();
+    chunky.setMainTabTransformer(tabs -> {
+      // First, call the previous transformer (allowing other plugins to work).
+      List<Tab> transformed = new ArrayList<>(prevMainTabTransformer.apply(tabs));
+
+      // Add a new tab as the first tab:
+      transformed.add(0, new CustomMainTab());
       return transformed;
     });
   }
